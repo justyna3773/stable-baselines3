@@ -125,9 +125,9 @@ class NatureCNN(BaseFeaturesExtractor):
         #there is a problem in this call below
         x = self.scale*self.use_attention(x)[0] + x
         x = self.relu(x)
-        x =self.relu(self.bn1(self.conv2(x))) #4,64,9,9
-        x =self.relu(self.bn2(self.conv3(x))) #4, 64, 7, 7
-        x = self.do(x.reshape(x.shape[0], -1))#4, 3136
+        x =self.relu(self.conv2(x)) #4,64,9,9
+        x =self.relu(self.conv3(x)) #4, 64, 7, 7
+        x = x.reshape(x.shape[0], -1)#4, 3136
         #x = self.fc_out(x)
         x = self.linear(x)
         return x
