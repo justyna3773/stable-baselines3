@@ -124,10 +124,9 @@ class NatureCNN(BaseFeaturesExtractor):
     def forward(self, observations: th.Tensor) -> th.Tensor:
         x = self.conv1(observations)#4,32,20,20
         #there is a problem in this call below
-        
-        x =self.relu(self.bn1(self.conv2(x))) #4,64,9,9
         x = self.scale*self.use_attention(x)[0] + x
         x = self.relu(x)
+        x =self.relu(self.bn1(self.conv2(x))) #4,64,9,9
         x =self.relu(self.bn2(self.conv3(x))) #4, 64, 7, 7
         x = x.reshape(x.shape[0], -1)#4, 3136
         #x = self.fc_out(x)
